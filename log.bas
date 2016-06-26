@@ -1,3 +1,8 @@
+Option Explicit
+
+' 内容：ログ処理のモジュール
+' 作成日：2016/06/26
+
 ' ログファイル
 Const lofFile = ActiveWorkbook.Path & "\log.log"
 
