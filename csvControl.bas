@@ -5,6 +5,15 @@ Option Explicit
 ' Const CSVFileName = "data.csv"
 ' Const CSVFilePath = ActiveWorkbook.Path & "\"
 
+' ファイル存在チェック
+Function isExistFile(ByVal fileName as String) as Boolean
+  If Dir(fileName) <> "" then
+    isExistFile = True
+  Else
+    isExistFile = False
+  End IF
+End Function
+
 ' CSV書き出し
 Sub writeCSV(ByVal list as collection,ByVal CSVFileFullPath as String)
   Dim outputData as Variant
