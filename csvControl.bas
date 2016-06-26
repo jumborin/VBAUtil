@@ -1,8 +1,9 @@
+Option Explicit
+
 ' CSVファイル操作クラス
 
-Const CSVFileName = "data.csv"
-Const CSVFilePath = ActiveWorkbook.Path & "\"
-
+' Const CSVFileName = "data.csv"
+' Const CSVFilePath = ActiveWorkbook.Path & "\"
 
 ' CSV書き出し
 Sub writeCSV(ByVal list as collection,ByVal CSVFileFullPath as String)
@@ -12,7 +13,7 @@ Sub writeCSV(ByVal list as collection,ByVal CSVFileFullPath as String)
     For each outputData in list
       Print #1,Join(outputData,",")
       Print #1,vbcrlf
-    next outputData
+    Next outputData
   Close #1
   
   MsgBox CSVFileFullPath & "にCSVファイルとして書き出しました"
