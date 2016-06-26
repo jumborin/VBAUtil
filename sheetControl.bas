@@ -1,3 +1,5 @@
+Option Explicit
+
 ' 右端シート追加
 Sub sheetAdd(ByVal fileName as String)
   Worksheets.Add(After:=Worksheets(Worksheets.Count)).Name = fileName
@@ -35,3 +37,32 @@ Function getSheetList() as Collection
 　Next sheetNo
 　getSheetList = list
 End Function
+
+' 最終行取得
+Function getLastRow(ByVal sheetName as String) as Integer
+  Dim columnNo as Integer
+  Dim maxRowNo as Long
+  maxRowNo = 1
+  For columnNo = 1 to 30
+    If maxRowNo < Workbooks(sheetName).Cells(Rows.Count, 1).End(xlUp).Row then
+      maxRowNo = Workbooks(sheetName).Cells(Rows.Count, 1).End(xlUp).Row
+    End If
+  Next columnNo
+  getLastRow = maxRowNo
+End Function
+
+' 最終列取得
+Function getLastColumn() as Integer
+  Dim rowNo as Integer
+  Dim maxColumnNo as Long
+  maxColumnNo = 1
+  
+  For rowNo = 1 to 30
+    If maxColumnNo < Workbooks(sheetName).Cells(Rows.Count, 1).End(xlUp).Row then
+      maxColumnNo = Workbooks(sheetName).Cells(Rows.Count, 1).End(xlUp).Row
+    End If
+  Next rowNo
+  
+  getLastColumn = maxColumnNo
+End Function
+
