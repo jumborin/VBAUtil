@@ -7,15 +7,15 @@ Dim processTime As Long
 
 ' 開始時に実行する
 Sub startProcess()
-  startTime = Timer
+  startTime = Now
   Application.ScreenUpdating = False
 End Sub
 
 ' 終了時に実行する
 Sub endProcess()
   Application.ScreenUpdating = True
-  MsgBox("処理が完了しました。")
-  endTime = Timer
+  endTime = Now
   processTime = endTime - startTime
-  Debug.Print("処理時間は" & processTime & "秒でした")
+  Debug.Print("処理時間は" & Format(processTime, "hh時間nn分ss秒") & "でした")
+  MsgBox("処理が完了しました。")
 End Sub
