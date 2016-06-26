@@ -1,3 +1,5 @@
+Option Explicit
+
 'HashMap
 
 ' キーのリスト
