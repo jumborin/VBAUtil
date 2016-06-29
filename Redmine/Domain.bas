@@ -8,6 +8,7 @@ Public 期限 as String
 Public 担当者 as String
 
 ' 処理用
+Dim ワークシート as New WorkSheet
 Dim タイトル配列() As Variant
 Dim データ配列() as Variant
 Const フィールド数 = 5
@@ -19,6 +20,11 @@ Friend Sub Class_Initialize()
   ReDim タイトル配列(フィールド数)
   ReDim データ配列(フィールド数)
   タイトル配列 = Array("チケットNo","ステータス","発行日","期限","担当者")
+End Sub
+
+'出力先シートをセットする。
+Friend Sub 出力先シートセット(ByVal シート名 as String)
+  Set ワークシート = WorkSheets(シート名)
 End Sub
 
 'データをセットする。
