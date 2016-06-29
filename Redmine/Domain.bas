@@ -11,6 +11,8 @@ Public 担当者 as String
 Dim タイトル配列() As Variant
 Dim データ配列() as Variant
 Const フィールド数 = 5
+Const 灰色 = 15
+Const 黄色 = 6
 
 ' コンストラクタ
 Friend Sub Class_Initialize()
@@ -32,26 +34,26 @@ End Sub
 ' 以下は変更不要
 
 ' タイトル行をセルに出力する。
-Friend Sub タイトル行を出力(ByVal タイトル行No as Integer)
+Friend Sub タイトル行を出力(ByVal ワークシート as WorkSheet ,ByVal タイトル行No as Integer)
   Dim i as Variant
   For i=0 to UBound(タイトル配列)
-    Cells(タイトル行No,i+1) = タイトル配列(i)
+    ワークシート.Cells(タイトル行No,i+1) = タイトル配列(i)
   Next データ
+  ワークシート.Range(Cells(タイトル行No,1),Cells(タイトル行No,UBound(タイトル配列+1)).Interior.ColorIndex = 灰色
+  ワークシート.Range(Cells(タイトル行No,1),Cells(タイトル行No,UBound(タイトル配列+1)).Borders.LineStyle = xlContinuous
 End Sub
 
 ' 任意の順番でセルに出力する。
-Friend Sub セルに出力(ByVal 行No as Integer)
+Friend Sub セルに出力(ByVal ワークシート as WorkSheet ,ByVal 行No as Integer)
   Dim i as Variant
   For i=0 to UBound(データ配列)
-    Cells(行No,i+1) = データ配列(i)
+    ワークシート.Cells(行No,i+1) = データ配列(i)
   Next データ
   Call セルの設定(行No)
 End Sub
 
 ' セルのレイアウトを設定する。
 Private Sub セルの設定(ByVal 行No as Integer)
-  Const 灰色 = 15
-  Const 黄色 = 6
   If ステータス = "完了" Then
     Range(Cells(行No,1),Cells(行No,UBound(データ配列)-1)).Interior.ColorIndex = 灰色
   ElseIf DateValue(期限) < Date Then
