@@ -11,7 +11,7 @@ Public 担当者 as String
 Dim ワークシート as New WorkSheet
 Dim タイトル配列() As Variant
 Dim データ配列() as Variant
-Const フィールド数 = 5
+Public Const フィールド数 = 5
 Const 灰色 = 15
 Const 黄色 = 6
 
@@ -51,7 +51,7 @@ End Sub
 
 ' 任意の順番でセルに出力する。
 Friend Sub セルに出力(ByVal ワークシート as WorkSheet ,ByVal 行No as Integer)
-  Dim i as Variant
+  Dim i as Integer
   For i=0 to UBound(データ配列)
     ワークシート.Cells(行No,i+1) = データ配列(i)
   Next データ
