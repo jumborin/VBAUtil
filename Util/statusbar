@@ -1,17 +1,29 @@
 Option Explicit
 
-Const 表示記号 = "■"
-Dim 進捗 as Integer
+Const DISPLAY_STRING = "処理中.....　進捗率："
+Const NOT_STARTED_SIGN = "□"
+Const FINISHED_SIGN = "■"
+Const DISPLAY_MAX_NUM = 10
+Dim progress as Integer
 
-Sub 進捗を進める()
-  進捗 = 進捗 + 1
-  Call ステータスバーを表示する(String(進捗,表示記号))
+' 開始処理。メイン処理実行前に実行すること。
+Sub initProcess()
+  progress = 0
+  Call displayStatusBar("□□□□□□□□□□")
 End Sub
 
-Sub ステータスバーを表示する(ByVal 表示文字 as String)
-  Application.StatusBar = 表示文字
+' 進捗を進める。メイン処理の区切りで実行すること。
+Sub advanceProgress()
+  progress = progress + 1
+  Call displayStatusBar(String(INT(10 * progress/DISPLAY_MAX_NUM),NOT_STARTED_SIGN) & String(10-INT(10*progress/DISPLAY_MAX_NUM),FINISHED_SIGN))
 End Sub
 
-Sub ステータスバーを非表示にする()
+' ステータスバーに任意の文字を表示する。
+Sub displayStatusBar(ByVal displayString as String)
+  Application.StatusBar = DISPLAY_STRING & displayString
+End Sub
+
+' 終了処理。メイン処理完了後に実行すること。
+Sub hideStatusBar()
   Application.StatusBar = False
 End Sub
