@@ -1,0 +1,17 @@
+Option Explicit
+
+Const 表示記号 = "■"
+Dim 進捗 as Integer
+
+Sub 進捗を進める()
+  進捗 = 進捗 + 1
+  Call ステータスバーを表示する(String(進捗,表示記号))
+End Sub
+
+Sub ステータスバーを表示する(ByVal 表示文字 as String)
+  Application.StatusBar = 表示文字
+End Sub
+
+Sub ステータスバーを非表示にする()
+  Application.StatusBar = False
+End Sub
