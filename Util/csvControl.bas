@@ -15,13 +15,12 @@ Function isExistFile(ByVal fileName as String) as Boolean
 End Function
 
 ' CSV書き出し
-Sub writeCSV(ByVal list as collection,ByVal CSVFileFullPath as String)
+Sub writeCSV(ByVal list as Collection,ByVal CSVFileFullPath as String)
   Dim outputData as Variant
   
   Open CSVFileFullPath For Output As #1
     For each outputData in list
       Print #1,Join(outputData,",")
-      Print #1,vbcrlf
     Next outputData
   Close #1
   
@@ -38,5 +37,5 @@ Function readCSV(ByVal CSVFileName as String) as Collection
       list.add(buf)
     Loop
   Close #2
-  readCSV = list
+  Set readCSV = list
 End Function
