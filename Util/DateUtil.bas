@@ -1,11 +1,13 @@
 Option Explicit
 
-' 8桁の日付を文字列で返す。
+' 日付操作を行うユーティリティクラス
+
+' 本日日付を8桁の文字列(yyyymmdd)で返す。
 Function getNowDateToString() as String
   getNowDateToString = Year(Date) & Month(Date) & Day(Date)
 End Function
 
-' 14桁の現在日時を文字列で返す。
+' 現在時刻を6桁の文字列(HHmmss)で返す。
 Function getNowDateTimeToString() as String
   getNowDateTimeToString = Hour(Time) & Minute(Time) & Second(Time)
 End Function
