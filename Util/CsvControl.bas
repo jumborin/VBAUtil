@@ -1,11 +1,14 @@
 Option Explicit
 
-' CSVファイル操作クラス
+' CSVファイルを操作するためのユーティリティ処理をまとめたクラス
 
 ' Const CSVFileName = "data.csv"
 ' Const CSVFilePath = ActiveWorkbook.Path & "\"
 
-' ファイル存在チェック
+' ファイル存在チェック処理
+' 引数で渡したファイルが存在しているかをチェックし、結果をBooleanで返却する
+' True：引数で渡したファイルが存在している
+' False：引数で渡したファイルが存在しない
 Function isExistFile(ByVal fileName as String) as Boolean
   If Dir(fileName) <> "" then
     isExistFile = True
@@ -14,7 +17,7 @@ Function isExistFile(ByVal fileName as String) as Boolean
   End IF
 End Function
 
-' CSV書き出し
+' 変数で渡したコレクションの中身を引数で渡したパスのCSVファイルに書き出す処理
 Sub writeCSV(ByVal list as Collection,ByVal CSVFileFullPath as String)
   Dim outputData as Variant
   
@@ -27,7 +30,7 @@ Sub writeCSV(ByVal list as Collection,ByVal CSVFileFullPath as String)
   MsgBox CSVFileFullPath & "にCSVファイルとして書き出しました"
 End Sub
 
-' CSVファイルを読み込み、コレクションで返却する。
+' 引数で渡したCSVファイルを読み込み、コレクションで返却する。
 Function readCSV(ByVal CSVFileName as String) as Collection
   Dim buf as String
   Dim list as New Collection
