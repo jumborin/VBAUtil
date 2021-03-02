@@ -1,3 +1,6 @@
+Option VBASupport 1
+' 上記はLibreOfficeでの開発用のため、MicosoftOfficeで実施する場合、削除すること。
+
 Option Explicit
 
 Private シート As Worksheet

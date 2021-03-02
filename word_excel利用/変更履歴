@@ -1,14 +1,19 @@
+Option VBASupport 1
+' 上記はLibreOfficeでの開発用のため、MicosoftOfficeで実施する場合、削除すること。
+
 Option Explicit
 
 Private シート As Worksheet
 Const シート名 = "変更履歴"
 
+' シートを作成する。
 Public Sub シート設定()
     ThisWorkbook.Worksheets.Add(After:=Worksheets(Worksheets.Count)).Name = シート名
     Set シート = ThisWorkbook.Worksheets(シート名)
     Call タイトル行出力
 End Sub
 
+' タイトル行を作成する。
 Private Sub タイトル行出力()
     With シート
         .Cells(1, 1).Value = "No"
@@ -22,6 +27,7 @@ Private Sub タイトル行出力()
     End With
     Columns("A:Z").EntireColumn.AutoFit
 End Sub
+
 
 Public Sub データ出力(ByVal ワードファイル As Word.Document)
     Dim 行 As Long
