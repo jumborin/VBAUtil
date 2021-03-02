@@ -9,16 +9,32 @@ Option Explicit
 ' ===========================================================
 Sub 目次作成_シート一覧()
 
+	' 定数処理
 	Const 目次シート名 = "目次"
 	Const 出力列No = 1
 	
-	
+	' 変数の宣言
 	Dim シートオブジェクト as Worksheet
 	Dim 行No as Integer
-	行No=1
+	Dim isSheetFlag as Boolean
 	
-	' クリア
-	Sheets(目次シート名).COLUMNs("A:A").Clear
+	' 変数の初期値設定
+	行No=1
+	isSheetFlag = false
+	
+	' シートが存在しない場合は、シートを追加
+	For Each シートオブジェクト In Sheets
+		if シートオブジェクト.Name = 目次シート名 then
+			isSheetFlag =true
+			' 目次シートをクリア
+			Sheets(目次シート名).COLUMNs("A:A").Clear
+			Exit for
+		end if
+	Next
+	if isSheetFlag=false then
+		ThisWorkbook.Worksheets.Add
+		ThisWorkbook.ActiveSheet.Name = 目次シート名
+	end if
 	
 	' ハイパーリンク付き目次一覧を作成
 	For Each シートオブジェクト In Sheets
@@ -32,5 +48,6 @@ Sub 目次作成_シート一覧()
 	
 	' 列幅を文字列に合わせて調整
     Columns("A:A").EntireColumn.AutoFit
+    
 End Sub
 
