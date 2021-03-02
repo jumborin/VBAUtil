@@ -17,10 +17,10 @@ Sub 目次作成_シート一覧()
 	Dim 行No as Integer
 	行No=1
 	
-	REM クリア
+	' クリア
 	Sheets(目次シート名).COLUMNs("A:A").Clear
 	
-	REM ハイパーリンク付き目次一覧を作成
+	' ハイパーリンク付き目次一覧を作成
 	For Each シートオブジェクト In Sheets
 		ActiveSheet.Hyperlinks.Add _
 		  Anchor:=Sheets(目次シート名).Cells(行No,出力列No) _
@@ -29,5 +29,8 @@ Sub 目次作成_シート一覧()
 		  , TextToDisplay:=シートオブジェクト.Name
 		行No=行No+1
 	Next
+	
+	' 列幅を文字列に合わせて調整
+    Columns("A:A").EntireColumn.AutoFit
 End Sub
 
