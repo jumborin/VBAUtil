@@ -1,5 +1,5 @@
 Option VBASupport 1
-' 上記はLibreOfficeでの開発用のため、MicosoftOfficeで実施する場合、削除すること。
+' 上記はLibreOfficeでの開発用のため、MicrosoftOfficeで実施する場合、削除すること。
 
 Option Explicit
 
@@ -12,6 +12,7 @@ Sub 目次作成_シート一覧()
 	' 定数処理
 	Const 目次シート名 = "目次"
 	Const 出力列No = 1
+	Const 出力列 = "A:A"
 	
 	' 変数の宣言
 	Dim シートオブジェクト as Worksheet
@@ -27,7 +28,7 @@ Sub 目次作成_シート一覧()
 		if シートオブジェクト.Name = 目次シート名 then
 			isSheetFlag =true
 			' 目次シートをクリア
-			Sheets(目次シート名).COLUMNs("A:A").Clear
+			Sheets(目次シート名).Columns(出力列).Clear
 			Exit for
 		end if
 	Next
@@ -38,16 +39,20 @@ Sub 目次作成_シート一覧()
 	
 	' ハイパーリンク付き目次一覧を作成
 	For Each シートオブジェクト In Sheets
+		' ハイパーリンク作成
 		ActiveSheet.Hyperlinks.Add _
 		  Anchor:=Sheets(目次シート名).Cells(行No,出力列No) _
 		  , Address:=ThisWorkbook.FullName _
 		  , SubAddress:=シートオブジェクト.Name & "!A1" _
 		  , TextToDisplay:=シートオブジェクト.Name
+		  
+		' 罫線を引く
+		Sheets(目次シート名).Cells(行No,出力列No).Borders.Weight = xlContinuous
 		行No=行No+1
 	Next
 	
 	' 列幅を文字列に合わせて調整
-    Columns("A:A").EntireColumn.AutoFit
+    Columns(出力列).EntireColumn.AutoFit
     
 End Sub
 
