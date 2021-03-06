@@ -16,17 +16,31 @@ Sub 実行()
     Application.ScreenUpdating = False
     
     ' 変数の宣言
-    Dim ファイル名, 検索Path As String
+    Dim ファイル名 As String
     Dim ワードファイル As Word.Document
     
     ' 定数の宣言
     Const 検索Path = "C:\VirtualE"
     
-    ファイル名 = Dir(検索Path & "\*.doc*")
+    ' Excel内にコメント一覧シートを作成
+    ThisWorkbook.Worksheets.Add(After:=Worksheets(Worksheets.Count)).Name = コメント一覧シート名
+    ThisWorkbook.Worksheets(コメント一覧シート名).Cells(1, 1).Value = "No"
+    ThisWorkbook.Worksheets(コメント一覧シート名).Cells(1, 2).Value = "ファイル名"
+    ThisWorkbook.Worksheets(コメント一覧シート名).Cells(1, 3).Value = "ページ"
+    ThisWorkbook.Worksheets(コメント一覧シート名).Cells(1, 4).Value = "行"
+    ThisWorkbook.Worksheets(コメント一覧シート名).Cells(1, 5).Value = "作成者"
+    ThisWorkbook.Worksheets(コメント一覧シート名).Cells(1, 6).Value = "コメント内容"
     
-    ' 別モジュールのメソッドを呼び出ししてExcel内にシートを作成
-    Call コメント一覧シート設定
-    Call 変更履歴シート設定
+    ' Excel内に変更履歴シートを作成
+    ThisWorkbook.Worksheets.Add(After:=Worksheets(Worksheets.Count)).Name = 変更履歴シート名
+    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 1).Value = "No"
+    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 2).Value = "作成日"
+    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 3).Value = "作成者"
+    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 4).Value = "ファイル名"
+    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 5).Value = "ページ"
+    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 6).Value = "行"
+    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 7).Value = "変更種別"
+    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 8).Value = "変更内容"
 
 	' ワードファイル処理のための準備
     Dim ワードアプリ As New Word.Application
@@ -34,6 +48,7 @@ Sub 実行()
     ワードアプリ.Visible = True
     
     ' 1ファイルずつ処理
+    ファイル名 = Dir(検索Path & "\*.doc*")
     Do While ファイル名 <> ""
         Set ワードファイル = ワードアプリ.Documents.Open(検索Path & "\" & ファイル名)
         Call コメント一覧データ出力(ワードファイル)
@@ -42,6 +57,9 @@ Sub 実行()
         ファイル名 = Dir()
     Loop
     
+    ' 列幅を調整
+    Columns("A:Z").EntireColumn.AutoFit
+    
     ' 後処理
     ワードアプリ.Quit
     Set ワードアプリ = Nothing
@@ -49,20 +67,9 @@ Sub 実行()
     Application.ScreenUpdating = True
 End Sub
 
-Private Sub コメント一覧シート設定()
-    ThisWorkbook.Worksheets.Add(After:=Worksheets(Worksheets.Count)).Name = コメント一覧シート名
-    ThisWorkbook.Worksheets(コメント一覧シート名).Cells(1, 1).Value = "No"
-    ThisWorkbook.Worksheets(コメント一覧シート名).Cells(1, 2).Value = "ファイル名"
-    ThisWorkbook.Worksheets(コメント一覧シート名).Cells(1, 3).Value = "ページ"
-    ThisWorkbook.Worksheets(コメント一覧シート名).Cells(1, 4).Value = "行"
-    ThisWorkbook.Worksheets(コメント一覧シート名).Cells(1, 5).Value = "作成者"
-    ThisWorkbook.Worksheets(コメント一覧シート名).Cells(1, 6).Value = "コメント内容"
-    Columns("A:Z").EntireColumn.AutoFit
-End Sub
 
 Private Sub コメント一覧データ出力(ByVal ワードファイル As Word.Document)
-    Dim 行 As Long
-    Dim コメント番号 As Long
+    Dim 行,コメント番号 As Long
     
     On Error Resume Next
     
@@ -76,27 +83,10 @@ Private Sub コメント一覧データ出力(ByVal ワードファイル As Wor
         ThisWorkbook.Worksheets(コメント一覧シート名).Cells(行, 6).Value = ワードファイル.Comments(コメント番号).Range
         行 = 行 + 1
     Next コメント番号
-    Columns("A:Z").EntireColumn.AutoFit
 End Sub
-
-' シートを作成する。
-Private Sub 変更履歴シート設定()
-    ThisWorkbook.Worksheets.Add(After:=Worksheets(Worksheets.Count)).Name = 変更履歴シート名
-    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 1).Value = "No"
-    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 2).Value = "作成日"
-    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 3).Value = "作成者"
-    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 4).Value = "ファイル名"
-    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 5).Value = "ページ"
-    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 6).Value = "行"
-    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 7).Value = "変更種別"
-    ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 8).Value = "変更内容"
-    Columns("A:Z").EntireColumn.AutoFit
-End Sub
-
 
 Private Sub 変更履歴データ出力(ByVal ワードファイル As Word.Document)
-    Dim 行 As Long
-    Dim コメント番号 As Long
+    Dim 行,コメント番号 As Long
     
     On Error Resume Next
     
@@ -112,7 +102,6 @@ Private Sub 変更履歴データ出力(ByVal ワードファイル As Word.Docu
         ThisWorkbook.Worksheets(変更履歴シート名).Cells(行, 8).Value = Mid(ワードファイル.Revisions(コメント番号).Range, 1, 255) '変更内容
         行 = 行 + 1
     Next コメント番号
-    Columns("A:Z").EntireColumn.AutoFit
 End Sub
 
 Private Function 変更履歴タイプ取得(ByVal タイプ As Integer) As String
