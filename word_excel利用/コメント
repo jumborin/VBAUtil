@@ -5,7 +5,7 @@ Option Explicit
 
 Const コメント一覧シート名 = "コメント一覧"
 
-Public Sub シート設定()
+Public Sub コメント一覧シート設定()
     ThisWorkbook.Worksheets.Add(After:=Worksheets(Worksheets.Count)).Name = コメント一覧シート名
     ThisWorkbook.Worksheets(コメント一覧シート名).Cells(1, 1).Value = "No"
     ThisWorkbook.Worksheets(コメント一覧シート名).Cells(1, 2).Value = "ファイル名"
@@ -16,7 +16,7 @@ Public Sub シート設定()
     Columns("A:Z").EntireColumn.AutoFit
 End Sub
 
-Public Sub データ出力(ByVal ワードファイル As Word.Document)
+Public Sub コメント一覧データ出力(ByVal ワードファイル As Word.Document)
     Dim 行 As Long
     Dim コメント番号 As Long
     

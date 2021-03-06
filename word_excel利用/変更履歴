@@ -6,7 +6,7 @@ Option Explicit
 Const 変更履歴シート名 = "変更履歴"
 
 ' シートを作成する。
-Public Sub シート設定()
+Public Sub 変更履歴シート設定()
     ThisWorkbook.Worksheets.Add(After:=Worksheets(Worksheets.Count)).Name = 変更履歴シート名
     ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 1).Value = "No"
     ThisWorkbook.Worksheets(変更履歴シート名).Cells(1, 2).Value = "作成日"
@@ -20,7 +20,7 @@ Public Sub シート設定()
 End Sub
 
 
-Public Sub データ出力(ByVal ワードファイル As Word.Document)
+Public Sub 変更履歴データ出力(ByVal ワードファイル As Word.Document)
     Dim 行 As Long
     Dim コメント番号 As Long
     
