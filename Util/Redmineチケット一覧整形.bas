@@ -21,9 +21,10 @@ Sub Redmine取り込みマクロ()
   ' 列幅を調整する
   Columns.EntireColumn.Autofit
   
-  ' オートフィルタがついていない場合のみオートフィルタを設定する
-  If ActiveSheet.AutoFilterMode = False Then
-    Range(Cells(1,1),Cells(最終行,最終列)).AutoFilter
+  ' オートフィルタで絞り込みされている場合、オートフィルタを1度解除し、再設定する
+  If ActiveSheet.AutoFilterMode = True Then
+    Range(Cells(1,1),Cells(最終行,1)).AutoFilter
   End If
+  Range(Cells(1,1),Cells(最終行,1)).AutoFilter
   
 End Sub
