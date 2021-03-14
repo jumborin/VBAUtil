@@ -14,5 +14,8 @@ Sub Redmine取り込みマクロ()
 
   ' 罫線を引く
   Range(Cells(1,1),Cells(最終行,最終列)).Borders.Weight = xlContinuous
+  
+  ' タイトル行に背景色をつける
+  Range(Cells(1,1),Cells(1,最終列)).Interior.ColorIndex = 3
 
 End Sub
