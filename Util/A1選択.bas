@@ -8,10 +8,12 @@ Option Explicit
 ' ===========================================================
 Sub A1Select()
   
-	' 変数の宣言
-	Dim シートオブジェクト as Worksheet
-	
-	For Each シートオブジェクト In Sheets
-	  シートオブジェクト.Cells(1,1).Select
-	Next
+    ' 変数の宣言
+    Dim シートオブジェクト As Worksheet
+    
+    For Each シートオブジェクト In Sheets
+      シートオブジェクト.Select
+      シートオブジェクト.Cells(1, 1).Select
+    Next
 End Sub
+
