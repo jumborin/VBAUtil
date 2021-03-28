@@ -13,7 +13,7 @@ Wordファイルの変更履歴一覧をExcelで作成するマクロ
 # Redmineチケット一覧整形(Libre対応)
 RedmineのチケットエクスポートによるCSVのシートを整形するマクロ
 
-# A1選択(Libre対応)
+# A1選択(Libre・Micorosoft両方対応済)
 Excelの全シートでA1セルを選択した状態にするマクロ
 
 以上
